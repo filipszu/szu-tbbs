@@ -13,5 +13,5 @@ ActionScript 3.0 game build with [Flixel](http://flixel.org).
 
 Site: <a href="http://www.filipszu.pl/" title="Click to go to FilipSZU's homesite!">filipszu.pl</a>
 
-Follow me: [@filipszu](https://twitter.com/filipszu)
+Twiiter: <a href="https://twitter.com/filipszu" title="Click to go to FilipSZU's Twitter!">@filipszu</a>
 </pre>
