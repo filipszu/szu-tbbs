@@ -10,7 +10,8 @@ ActionScript 3.0 game build with [Flixel](http://flixel.org).
  | _| | || || || '_ \\__ \ / / | |_| |
  |_|  |_||_||_|| .__/|___//___| \___/ 
                |_|    Interactive Developer
-</pre>
+
 URL: [filipszu.pl](http://www.filipszu.pl/)
 
 Follow me: [@filipszu](https://twitter.com/filipszu)
+</pre>
