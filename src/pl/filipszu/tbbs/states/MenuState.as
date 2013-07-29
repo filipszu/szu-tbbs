@@ -1,4 +1,7 @@
 ﻿package pl.filipszu.tbbs.states{
+	import flash.display.MovieClip;
+	import flash.display.Sprite;
+	import flash.events.MouseEvent;
 	import flash.text.Font;
 	import flash.utils.getDefinitionByName;
 	
@@ -27,16 +30,18 @@
 		public var menuText:FlxText;
 		private var textString; 
 		private var model:GameModel = GameModel.getInstance();
+		private var bg:FlxSprite;
 		
 		public function MenuState(){
 			//FlxG.switchState(new PlayState(new Level1(false)));
 		}
 		
 		override public function create():void{
-			
-			add(new FlxSprite(0, 0, BG));
+			bg = new FlxSprite(0, 0, BG) 
+			add(bg);
 			model.currentLevelIndex = 0;
 			
+			/*
 			var s:FlxText = new FlxText(FlxG.width/2 - 155, 10, 310, 'This is a TEST game. Catch worms bring them to the big bird.', true);
 			s.setFormat("GRO", 18, 0x000000, 'left');
 			s.antialiasing = true;
@@ -53,7 +58,11 @@
 			var s2:FlxText = new FlxText(FlxG.width/2 - 50, 170, 100, '[UP] [LEFT] [RIGHT]');
 			s2.setFormat("GRO", 8, 0xCC0000, 'center');
 			add(s2);
-				
+			*/	
+		}
+		
+		private function onStageClick(e:MouseEvent):void{
+			trace('click');
 		}
 		
 		override public function update():void{

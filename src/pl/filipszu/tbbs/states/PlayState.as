@@ -1,10 +1,12 @@
 ﻿package pl.filipszu.tbbs.states{
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.utils.getDefinitionByName;
 	
 	import org.flixel.FlxBasic;
 	import org.flixel.FlxCamera;
 	import org.flixel.FlxG;
+	import org.flixel.FlxGame;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxObject;
 	import org.flixel.FlxPoint;
@@ -12,10 +14,14 @@
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
 	import org.flixel.FlxTileblock;
+	import org.flixel.plugin.photonstorm.FlxCollision;
 	import org.flixel.plugin.photonstorm.FlxDelay;
 	import org.flixel.plugin.photonstorm.FlxDisplay;
 	import org.flixel.plugin.photonstorm.FlxMath;
 	
+	import pl.filipszu.tbbs.enemies.Mine;
+	import pl.filipszu.tbbs.enemies.Mine_proto;
+	import pl.filipszu.tbbs.maps.Level_Level5;
 	import pl.filipszu.tbbs.maps.Level_proto;
 	import pl.filipszu.tbbs.model.GameModel;
 	import pl.filipszu.tbbs.player.Nest_proto;
@@ -25,10 +31,6 @@
 	import pl.filipszu.tbbs.worm.WormBirthPlace;
 	import pl.filipszu.tbbs.worm.WormTeleport;
 	import pl.filipszu.tbbs.worm.Worm_proto;
-	import pl.filipszu.tbbs.enemies.Mine;
-	import pl.filipszu.tbbs.enemies.Mine_proto;
-	import flash.geom.Point;
-	import org.flixel.plugin.photonstorm.FlxCollision;
 	
 	public class PlayState extends FlxState{
 		
@@ -50,12 +52,19 @@
 		private var respawnTimer:FlxDelay;
 		
 		public function PlayState(_levelData:Level_proto = null) {
-			level = _levelData;
+			if(_levelData == null){
+				level = new Level_Level5();
+			}else{
+				level = _levelData;
+			}
+			
 		}
 		
 		override public function create():void{
 			resetModel();
-			FlxG.mouse.show();
+			//FlxG.mouse.show();
+			
+			trace(FlxG.stage.focus);
 			add(new FlxSprite(0, 0, BG));
 			addLevel();
 			addWorms();
