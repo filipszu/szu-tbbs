@@ -62,7 +62,7 @@
 		}
 		
 		private function onStageClick(e:MouseEvent):void{
-			trace('click');
+			
 		}
 		
 		override public function update():void{

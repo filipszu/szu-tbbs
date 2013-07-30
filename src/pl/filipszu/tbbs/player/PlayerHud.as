@@ -1,10 +1,11 @@
 ﻿package pl.filipszu.tbbs.player {
-	import org.flixel.FlxSprite;
-	import pl.filipszu.tbbs.model.GameModel;
-	import org.flixel.FlxGroup;
 	import org.flixel.FlxCamera;
 	import org.flixel.FlxG;
+	import org.flixel.FlxGroup;
+	import org.flixel.FlxSprite;
 	import org.flixel.FlxText;
+	
+	import pl.filipszu.tbbs.model.GameModel;
 	
 	public class PlayerHud extends FlxGroup{
 		
@@ -70,6 +71,7 @@
 			pointer.antialiasing = true;
 			//pointer.scrollFactor.x = pointer.scrollFactor.y = 0;
 			add(pointer);
+			pointer.visible = false;
 		}
 		/*
 		private function createMiniMap():void{
@@ -99,28 +101,29 @@
 			//fullLabel.text = 'Time: '+Math.floor(model.time).toString();
 			var hrTime:String = 'Time: '+convertToHHMMSS(Math.floor(model.time));
 			fullLabel.text = hrTime;
-			if(model.player.full){
-				
-				pointer.visible = true;
-				//pointer.scrollFactor.x = pointer.scrollFactor.y = 0;
-				
-				
-				var dx:int = model.level.nestPoint.x - model.player.x + .5 * model.player.width - pointer.width * .5;
-            	var dy:int = model.level.nestPoint.y - model.player.y + .5 * model.player.height - pointer.height * .5;
-            
-            	var cursorAngle:Number = Math.atan2(dy, dx);
-				var cursorDegree:Number = 360*(cursorAngle/(2*Math.PI));
-				var dist:Number = Math.sqrt(dx*dx+dy*dy);
-				
-				pointer.angle = cursorDegree;
-				
-				pointer.x = (model.player.x + .5 * model.player.width - pointer.width * .5) + model.player.width  * Math.cos(cursorAngle);
-				pointer.y = (model.player.y + .5 * model.player.height - pointer.height * .5) + model.player.width  * Math.sin(cursorAngle) ;
-				
-			}else{
-				//fullLabel.text = 'EMPTY';
-				pointer.visible = false;
-			}
+				if(model.player.full){
+					
+					pointer.visible = true;
+					//pointer.scrollFactor.x = pointer.scrollFactor.y = 0;
+					
+					
+					var dx:int = model.level.nestPoint.x - model.player.x + .5 * model.player.width - pointer.width * .5;
+	            	var dy:int = model.level.nestPoint.y - model.player.y + .5 * model.player.height - pointer.height * .5;
+	            
+	            	var cursorAngle:Number = Math.atan2(dy, dx);
+					var cursorDegree:Number = 360*(cursorAngle/(2*Math.PI));
+					var dist:Number = Math.sqrt(dx*dx+dy*dy);
+					
+					pointer.angle = cursorDegree;
+					
+					pointer.x = (model.player.x + .5 * model.player.width - pointer.width * .5) + model.player.width  * Math.cos(cursorAngle);
+					pointer.y = (model.player.y + .5 * model.player.height - pointer.height * .5) + model.player.width  * Math.sin(cursorAngle) ;
+					
+				}else{
+					//fullLabel.text = 'EMPTY';
+					
+						pointer.visible = false;
+				}
 		}
 		
 		private function convertToHHMMSS($seconds:Number):String{

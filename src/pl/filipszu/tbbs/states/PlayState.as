@@ -1,4 +1,5 @@
 ﻿package pl.filipszu.tbbs.states{
+	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.utils.getDefinitionByName;
@@ -63,8 +64,7 @@
 		override public function create():void{
 			resetModel();
 			//FlxG.mouse.show();
-			
-			trace(FlxG.stage.focus);
+			FlxG.paused = true;
 			add(new FlxSprite(0, 0, BG));
 			addLevel();
 			addWorms();
@@ -178,34 +178,37 @@
 		}
 		
 		override public function update():void{
-			super.update();
-			FlxG.collide(player, bounds);
-			FlxG.collide(player, level.mainLayer, onPlayerCollide);
-			FlxG.collide(worms, level.mainLayer, onWormCollide);
-			FlxG.collide(worms, bounds, onWormCollide);
-			FlxG.overlap(player, nest, onNestOverlap);
-			FlxG.overlap(player, worms, onWormOverlap);
-			FlxG.overlap(player, minesSpots, onMineOverlap); 
-			//FlxG.overlap(player, mineEx, onExplosionOverlap);
-			for(var i:uint = 0; i < mines.length; i++){
-				var mine:Mine_proto = mines.members[i] as Mine_proto;
-				if(FlxCollision.pixelPerfectCheck(player, mine.explosion)){
-					onExplosionOverlap(mine);
+			if(!FlxG.paused){
+				super.update();
+				FlxG.collide(player, bounds);
+				FlxG.collide(player, level.mainLayer, onPlayerCollide);
+				FlxG.collide(worms, level.mainLayer, onWormCollide);
+				FlxG.collide(worms, bounds, onWormCollide);
+				FlxG.overlap(player, nest, onNestOverlap);
+				FlxG.overlap(player, worms, onWormOverlap);
+				FlxG.overlap(player, minesSpots, onMineOverlap); 
+				//FlxG.overlap(player, mineEx, onExplosionOverlap);
+				for(var i:uint = 0; i < mines.length; i++){
+					var mine:Mine_proto = mines.members[i] as Mine_proto;
+					if(FlxCollision.pixelPerfectCheck(player, mine.explosion)){
+						onExplosionOverlap(mine);
+					}
 				}
+				
+				updateMines();
+				
+				if(player.health <= 0){
+					game_over();
+				}
+				
+				model.time += FlxG.elapsed;
+				if(FlxG.keys.SPACE){
+					mines.kill();
+					minesSpots.kill();
+					addMines();
+				}	
 			}
 			
-			updateMines();
-			
-			if(player.health <= 0){
-				advance();
-			}
-			
-			model.time += FlxG.elapsed;
-			if(FlxG.keys.SPACE){
-				mines.kill();
-				minesSpots.kill();
-				addMines();
-			}
 		}
 		
 		private function onExplosionOverlap(mine:Mine_proto):void{
@@ -326,35 +329,17 @@
 				
 				model.currentPoints++;
 				if(model.currentPoints == model.level.MAX_WORMS_CATCH){
-					advance();
+					congrats();
 				}
 			}
 		}
 		
-		private function returnToMenu():void{
-			FlxG.switchState(new MenuState());
+		private function congrats():void{
+			FlxG.stage.dispatchEvent(new Event('congrats'));
 		}
 		
-		private function restartLevel():void{
-			var levelClass:Class = getDefinitionByName('source.maps::Level'+model.currentLevelIndex) as Class;
-			var level = new levelClass();
-		}
-		
-		private function restart():void{
-			FlxG.camera.flash(0xFF66CC66, 2, afterRestartFlash, true);
-		}
-		
-		private function afterRestartFlash():void{
-			restartLevel();	
-		}
-		
-		private function advance():void{
-			//FlxG.camera.fade(0xFF66CC66, 3, afterAdvanceFlash, true);
-			returnToMenu();
-		}
-		
-		private function afterAdvanceFlash():void{
-			returnToMenu();
+		private function game_over():void{
+			FlxG.stage.dispatchEvent(new Event('game over'));
 		}
 		
 	}
