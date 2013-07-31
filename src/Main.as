@@ -10,6 +10,7 @@ package{
 	
 	import pl.filipszu.tbbs.AssetsLib;
 	import pl.filipszu.tbbs.Game;
+	import pl.filipszu.tbbs.screens.CongratsScreen;
 	import pl.filipszu.tbbs.screens.StartScreen;
 	import pl.filipszu.tbbs.states.MenuState;
 	import pl.filipszu.tbbs.states.PlayState;
@@ -40,15 +41,13 @@ package{
 		protected function onCongrats(e:Event):void{
 			FlxG.resetGame();
 			clearWrapper();
-			
-			var congrats:CangratsScreenMC = new CangratsScreenMC();
+			var congrats:CongratsScreen = new CongratsScreen();
 			congrats.name = 'screen';
 			congrats.x = 20;
 			congrats.y = 20;
 			congrats.addEventListener(MouseEvent.CLICK, onReStartClick);
 			wrapper.addChild(congrats);
 			addChild(wrapper);
-			
 		}
 		
 		private function createWrapper():void{

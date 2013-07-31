@@ -2,18 +2,40 @@
 	import flash.geom.Rectangle;
 	
 	import org.flixel.FlxPoint;
-
-	import pl.filipszu.tbbs.maps.Level_proto;
-	import pl.filipszu.tbbs.player.Player;
+	
 	import pl.filipszu.tbbs.maps.Level_Level1;
 	import pl.filipszu.tbbs.maps.Level_Level2;
 	import pl.filipszu.tbbs.maps.Level_Level3;
 	import pl.filipszu.tbbs.maps.Level_Level4;
 	import pl.filipszu.tbbs.maps.Level_Level5;
+	import pl.filipszu.tbbs.maps.Level_proto;
+	import pl.filipszu.tbbs.player.Player;
 	
 	public class GameModel {
 		
 		public var time:Number = 0;
+		
+		private function doubleDigitFormat($num:uint):String{
+			if ($num < 10) 
+			{
+				return ("0" + $num);
+			}
+			return String($num);
+		}
+		
+		public function timeString():String{
+			var $seconds:int = Math.floor(time);
+			var s:Number = $seconds % 60;
+			var m:Number = Math.floor(($seconds % 3600 ) / 60);
+			var h:Number = Math.floor($seconds / (60 * 60));
+			
+			var hourStr:String = (h == 0) ? "" : doubleDigitFormat(h) + ":";
+			var minuteStr:String = doubleDigitFormat(m) + ":";
+			var secondsStr:String = doubleDigitFormat(s);
+			
+			return hourStr + minuteStr + secondsStr;
+		}
+		
 		public var player:Player;
 		public var currentLevelIndex:uint = 0;
 		public var level:Level_proto;
