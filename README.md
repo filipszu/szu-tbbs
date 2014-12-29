@@ -2,7 +2,7 @@ The Big Birds Slave
 ===
 ActionScript 3.0 game build with [Flixel](http://flixel.org).
 ***
-[Live Demo](http://demo.filipszu.com/TBBS/)
+[Live Demo](http://filipszu.com/demo/TBBS/)
 ---
 <pre>
   ___  _  _  _        ___  ____ _   _ 
